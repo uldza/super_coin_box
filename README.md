@@ -1,4 +1,4 @@
-super_coin_box
+Super Coin Box
 ==============
 
 Phaser game, <b>work in progress...</b>
