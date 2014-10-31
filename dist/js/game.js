@@ -7,7 +7,6 @@ window.onload = function () {
 
   // Game States
   game.state.add('boot', require('./states/boot'));
-  game.state.add('gameover', require('./states/gameover'));
   game.state.add('menu', require('./states/menu'));
   game.state.add('play', require('./states/play'));
   game.state.add('preload', require('./states/preload'));
@@ -15,7 +14,7 @@ window.onload = function () {
 
   game.state.start('boot');
 };
-},{"./states/boot":2,"./states/gameover":3,"./states/menu":4,"./states/play":5,"./states/preload":6}],2:[function(require,module,exports){
+},{"./states/boot":2,"./states/menu":3,"./states/play":4,"./states/preload":5}],2:[function(require,module,exports){
 'use strict';
 
 function Boot() {
@@ -64,34 +63,6 @@ Boot.prototype = {
 module.exports = Boot;
 
 },{}],3:[function(require,module,exports){
-
-'use strict';
-function GameOver() {}
-
-GameOver.prototype = {
-  preload: function () {
-
-  },
-  create: function () {
-    var style = { font: '65px Arial', fill: '#ffffff', align: 'center'};
-    this.titleText = this.game.add.text(this.game.world.centerX,100, 'Game Over!', style);
-    this.titleText.anchor.setTo(0.5, 0.5);
-
-    this.congratsText = this.game.add.text(this.game.world.centerX, 200, 'You Win!', { font: '32px Arial', fill: '#ffffff', align: 'center'});
-    this.congratsText.anchor.setTo(0.5, 0.5);
-
-    this.instructionText = this.game.add.text(this.game.world.centerX, 300, 'Click To Play Again', { font: '16px Arial', fill: '#ffffff', align: 'center'});
-    this.instructionText.anchor.setTo(0.5, 0.5);
-  },
-  update: function () {
-    if(this.game.input.activePointer.justPressed()) {
-      this.game.state.start('play');
-    }
-  }
-};
-module.exports = GameOver;
-
-},{}],4:[function(require,module,exports){
 
 'use strict';
 function Menu() {}
@@ -177,7 +148,7 @@ Menu.prototype = {
 
 module.exports = Menu;
 
-},{}],5:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 'use strict';
 function Play() {}
 
@@ -413,7 +384,7 @@ Play.prototype = {
 
 module.exports = Play;
 
-},{}],6:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 
 'use strict';
 function Preload() {
