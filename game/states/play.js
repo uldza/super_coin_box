@@ -149,6 +149,8 @@ Play.prototype = {
 
 		var newPosition = coinPosition[this.game.rnd.integerInRange(0, coinPosition.length-1)];
 		this.coin.reset(newPosition.x, newPosition.y);
+        this.coin.animations.add('spin');
+        this.coin.animations.play('spin', 15, true);
 	},
 
 	addEnemy: function() {

@@ -15,7 +15,8 @@ Preload.prototype = {
     this.game.load.spritesheet('player', 'assets/player2.png', 20, 20);
     this.game.load.image('enemy', 'assets/enemy.png');
 
-    this.game.load.image('coin', 'assets/coin.png');
+    this.game.load.atlasJSONHash('coin', 'assets/coin_sprite.png', 'assets/coin_sprite.json');
+    //this.game.load.image('coin', 'assets/coin.png');
 
     this.game.load.image('tileset', 'assets/tileset.png');
     this.game.load.tilemap('map', 'assets/map.json', null, Phaser.Tilemap.TILED_JSON);
