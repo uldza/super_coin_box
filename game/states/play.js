@@ -32,6 +32,9 @@ Play.prototype = {
 		this.game.physics.arcade.enable(this.coin);
 		this.coin.anchor.setTo(0.5, 0.5);
 
+        this.coin.animations.add('spin');
+        this.coin.animations.play('spin', 15, true);
+
 		this.scoreLabel = this.game.add.text(30, 30, 'score: 0', { font: '18px Arial', fill: '#ffffff' });
 		this.game.global.score = 0;
 
@@ -124,10 +127,10 @@ Play.prototype = {
 		this.game.global.score += 5;
 		this.scoreLabel.text = 'score: ' + this.game.global.score;
 
-        this.coin.scale.setTo(0, 0);
-        this.game.add.tween(this.coin.scale).to({x: 1, y: 1}, 300).start();
+        coin.scale.setTo(0, 0);
+        this.game.add.tween(coin.scale).to({x: 1, y: 1}, 300).start();
 
-        this.game.add.tween(this.player.scale).to({x: 1.3, y: 1.3}, 50).to({x: 1, y: 1}, 150).start();
+        this.game.add.tween(player.scale).to({x: 1.3, y: 1.3}, 50).to({x: 1, y: 1}, 150).start();
 
         this.coinSound.play();
 
