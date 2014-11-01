@@ -140,10 +140,9 @@ Play.prototype = {
 		this.game.global.score += 5;
 		this.scoreLabel.text = 'score: ' + this.game.global.score;
 
+        this.game.add.tween(coin.scale).to({x: 0, y: 0}, 300).start();
         coin.scale.setTo(0, 0);
         this.game.add.tween(coin.scale).to({x: 1, y: 1}, 300).start();
-
-        this.game.add.tween(player.scale).to({x: 1.3, y: 1.3}, 50).to({x: 1, y: 1}, 150).start();
 
         this.coinSound.play();
 
