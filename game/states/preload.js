@@ -12,7 +12,7 @@ Preload.prototype = {
     // Display the progress bar
     var progressBar = this.game.add.sprite(this.game.world.centerX, 200, 'progressBar'); progressBar.anchor.setTo(0.5, 0.5); this.game.load.setPreloadSprite(progressBar);
     // Load all our assets
-    this.game.load.spritesheet('player', 'assets/player2.png', 20, 20);
+    this.game.load.spritesheet('player', 'assets/player.png', 32, 32);
     this.game.load.image('enemy', 'assets/enemy.png');
 
     this.game.load.atlasJSONHash('coin', 'assets/coin_sprite.png', 'assets/coin_sprite.json');
