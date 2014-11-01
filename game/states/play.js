@@ -17,9 +17,9 @@ Play.prototype = {
 		this.player.anchor.setTo(0.5, 0.5);
 
         // Create the 'walk' animation by looping the frames 1 - 4
-        this.player.animations.add('walk', [1, 2, 3, 4], 8, true);
+        this.player.animations.add('walk', [0, 1, 2, 3], 8, true);
         // Create 'jump' animation
-        this.player.animations.add('jump', [5, 6, 7, 8], 8, false);
+        this.player.animations.add('jump', [4, 5, 6], 1, false);
 
 		this.game.physics.arcade.enable(this.player);
 		this.player.body.gravity.y = 500;
@@ -131,8 +131,8 @@ Play.prototype = {
         if (this.player.body.onFloor()) {
             // Jump with sound
             this.jumpSound.play();
-            this.player.animations.play('jump');
             this.player.body.velocity.y = -320;
+            this.player.animations.play('jump');
         }
     },
 
