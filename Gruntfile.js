@@ -1,6 +1,7 @@
 // Generated on 2014-03-28 using generator-phaser-official 0.0.8-rc-2
 'use strict';
 var config = require('./config.json');
+var pkg = require('./package.json');
 var _ = require('underscore');
 _.str = require('underscore.string');
 
@@ -12,11 +13,11 @@ var lrSnippet = require('connect-livereload')({port: LIVERELOAD_PORT});
 var mountFolder = function (connect, dir) {
   return connect.static(require('path').resolve(dir));
 };
- 
+
 module.exports = function (grunt) {
   // load all grunt tasks
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
- 
+
   grunt.initConfig({
     watch: {
       scripts: {
@@ -70,13 +71,33 @@ module.exports = function (grunt) {
         src: ['game/main.js'],
         dest: 'dist/js/game.js'
       }
+    },
+    shipit: {
+      options: {
+        workspace: '/tmp/github-monitor',
+
+        // Project will be deployed in this directory.
+        deployTo: '/home/demo/',
+
+        // Repository url.
+        repositoryUrl: pkg.repository.url,
+
+        // This files will not be transfered.
+        ignores: ['.git', 'node_modules'],
+
+        // Number of release to keep (for rollback).
+        keepReleases: 3
+      },
+      staging: {
+        servers: ['demo@example.com:22'],
+      }
     }
   });
-  
+
   grunt.registerTask('build', ['buildBootstrapper', 'browserify','copy']);
   grunt.registerTask('serve', ['build', 'connect:livereload', 'open', 'watch']);
   grunt.registerTask('default', ['serve']);
-  grunt.registerTask('prod', ['build', 'copy']);
+  grunt.registerTask('deploy', ['prod', 'shipit']);
 
   grunt.registerTask('buildBootstrapper', 'builds the bootstrapper file correctly', function() {
     var stateFiles = grunt.file.expand('game/states/*.js');
