@@ -72,7 +72,7 @@ Play.prototype = {
 
 	update: function() {
 		this.game.physics.arcade.collide(this.player, this.layer);
-		this.game.physics.arcade.collide(this.enemies, this.layer);
+		this.game.physics.arcade.collide(this.enemies, this.layer, this.enemyHit, null, this);
 		this.game.physics.arcade.overlap(this.player, this.coin, this.takeCoin, null, this);
 		this.game.physics.arcade.overlap(this.player, this.enemies, this.playerDie, null, this);
 
@@ -93,6 +93,9 @@ Play.prototype = {
             this.nextEnemy = this.game.time.now + delay;
         }
 	},
+
+    enemyHit: function(enemy, wall) {
+    },
 
 	movePlayer: function() {
 		if (this.cursor.left.isDown || this.wasd.left.isDown || this.moveLeft) {
@@ -173,12 +176,17 @@ Play.prototype = {
 		}
 
 		enemy.anchor.setTo(0.5, 1);
-		enemy.reset(this.game.world.centerX, 0);
+		enemy.reset(this.game.world.centerX+10, 0);
 		enemy.body.gravity.y = 500;
 		enemy.body.velocity.x = 100 * Phaser.Math.randomSign();
 		enemy.body.bounce.x = 1;
 		enemy.checkWorldBounds = true;
 		enemy.outOfBoundsKill = true;
+
+        enemy.animations.add('crawl', [0, 1, 2, 3], 8, true);
+        enemy.animations.play('crawl');
+
+
 	},
 
 	createWorld: function() {
