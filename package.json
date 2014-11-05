@@ -12,6 +12,7 @@
     "grunt-contrib-watch": "~0.4.3",
     "grunt-html-build": "~0.3.2",
     "grunt-open": "~0.2.0",
+    "grunt-prompt": "^1.3.0",
     "grunt-shipit": "^0.4.2",
     "matchdep": "~0.1.2",
     "moment": "~2.0.0",

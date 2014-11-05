@@ -77,7 +77,7 @@ module.exports = function (grunt) {
         workspace: '/tmp/github-monitor',
 
         // Project will be deployed in this directory.
-        deployTo: '/home/demo/',
+        deployTo: '/var/www/apps/',
 
         // Repository url.
         repositoryUrl: pkg.repository.url,
@@ -88,16 +88,44 @@ module.exports = function (grunt) {
         // Number of release to keep (for rollback).
         keepReleases: 3
       },
-      staging: {
-        servers: ['demo@example.com:22'],
+      production: {
+        servers: 'demo@example.com:22',
       }
+    },
+    prompt: {
+        server: {
+          options: {
+            questions: [
+              {
+                config: 'shipit.production.servers',
+                type: 'input',
+                message: 'Remote server address',
+                default: 'demo@example.com:22',
+              },
+              {
+                config: 'shipit.options.deployTo',
+                type: 'input',
+                message: 'Target directory',
+                default: '/var/www',
+              }
+            ]
+          }
+        },
     }
   });
 
   grunt.registerTask('build', ['buildBootstrapper', 'browserify','copy']);
   grunt.registerTask('serve', ['build', 'connect:livereload', 'open', 'watch']);
   grunt.registerTask('default', ['serve']);
-  grunt.registerTask('deploy', ['build','copy','shipit']);
+
+  grunt.registerTask('remote_prepare', function() {
+      grunt.task.requires('build');
+      grunt.task.requires('copy');
+      grunt.task.requires('prompt:server');
+      grunt.task.run(['shipit:production','deploy']);
+  });
+
+  grunt.registerTask('deployment', ['build','copy', 'prompt:server', 'remote_prepare']);
 
   grunt.registerTask('buildBootstrapper', 'builds the bootstrapper file correctly', function() {
     var stateFiles = grunt.file.expand('game/states/*.js');
