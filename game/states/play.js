@@ -82,6 +82,8 @@ Play.prototype = {
 			this.playerDie();
 		}
 
+        this.enemies.callAll('checkLocation');
+
         // If the 'nextEnemy' time has passed
         if (this.nextEnemy < this.game.time.now) {
             var start = 4000, end = 1000, score = 100;
@@ -93,9 +95,6 @@ Play.prototype = {
             this.nextEnemy = this.game.time.now + delay;
         }
 	},
-
-    enemyHit: function(enemy, wall) {
-    },
 
 	movePlayer: function() {
 		if (this.cursor.left.isDown || this.wasd.left.isDown || this.moveLeft) {
@@ -177,8 +176,13 @@ Play.prototype = {
 
 		enemy.anchor.setTo(0.5, 1);
 		enemy.reset(this.game.world.centerX+10, 0);
+        enemy.scale.x = 1;
+
 		enemy.body.gravity.y = 500;
 		enemy.body.velocity.x = 100 * Phaser.Math.randomSign();
+
+        if(enemy.body.velocity.x <= 0) enemy.scale.x = -1;
+
 		enemy.body.bounce.x = 1;
 		enemy.checkWorldBounds = true;
 		enemy.outOfBoundsKill = true;
@@ -186,7 +190,10 @@ Play.prototype = {
         enemy.animations.add('crawl', [0, 1, 2, 3], 8, true);
         enemy.animations.play('crawl');
 
-
+        enemy.checkLocation = function() {
+            if(enemy.body.blocked.left) enemy.scale.x = 1;
+            if(enemy.body.blocked.right) enemy.scale.x = -1;
+        };
 	},
 
 	createWorld: function() {
