@@ -230,14 +230,14 @@ Play.prototype = {
 	},
     addMobileInputs: function() {
         // Add the jump button
-        this.jumpButton = this.game.add.sprite(350, 247, 'jumpButton');
+        this.jumpButton = this.game.add.sprite(400, 247, 'jumpButton');
         this.jumpButton.inputEnabled = true;
         this.jumpButton.alpha = 0.5;
         // Call 'jumpPlayer' when the 'jumpButton' is pressed
         this.jumpButton.events.onInputDown.add(this.jumpPlayer, this);
 
         // Add the move left button
-        this.leftButton = this.game.add.sprite(50, 247, 'leftButton');
+        this.leftButton = this.game.add.sprite(0, 247, 'leftButton');
         this.leftButton.inputEnabled = true;
         this.leftButton.alpha = 0.5;
         this.leftButton.events.onInputOver.add(function(){this.moveLeft=true;}, this);
@@ -246,7 +246,7 @@ Play.prototype = {
         this.leftButton.events.onInputUp.add(function(){this.moveLeft=false;}, this);
 
         // Add the move right button
-        this.rightButton = this.game.add.sprite(130, 247, 'rightButton');
+        this.rightButton = this.game.add.sprite(80, 247, 'rightButton');
         this.rightButton.inputEnabled = true;
         this.rightButton.alpha = 0.5;
         this.rightButton.events.onInputOver.add(function(){this.moveRight=true;}, this);
